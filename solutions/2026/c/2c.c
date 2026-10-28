@@ -44,7 +44,6 @@ int main() {
     ssize_t bytesRead;
 
     int64 checksum = 0;
-    [[maybe_unused]]int row = 1;
     while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
         char *baseInput = input;
         if (bytesRead % 4 != 0) {
@@ -68,21 +67,11 @@ int main() {
             }
         }
 
-        for (int32 i = 0; i+1 < ALLOYS; i++) {
-            int32 u = digits[i] - 1;
-            int32 v = digits[i + 1] - 1;
-            assert(adjacent[u][v]);
-        }
-
-
         int64 number = 0;
-
         for (int32 index = 0; index < ALLOYS; index++) {
             number = number * 10ll + digits[index];
         }
-        printf("number %d: %ld\n", row, number);
         checksum += number;
-        row++;
         free(baseInput);
         input = nullptr;
         inputSize = 0;
