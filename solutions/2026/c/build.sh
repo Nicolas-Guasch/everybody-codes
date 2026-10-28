@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DAY="$1"
+SOURCE_FILE="$DAY.c"
+EXE_NAME="$DAY"
+
+CLANG_FLAGS=""
+CLANG_FLAGS_OPT="-O3 -march=znver5"
+
+clang $CLANG_FLAGS $CLANG_FLAGS_OPT "$SOURCE_FILE" -o "$EXE_NAME"

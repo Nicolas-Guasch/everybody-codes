@@ -1,3 +1,9 @@
+solutions/2026/c/*
+!solutions/2026/c/*.*
+
+# Input files
+*.in
+
 # Prerequisites
 *.d
 
