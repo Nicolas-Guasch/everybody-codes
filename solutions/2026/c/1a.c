@@ -12,9 +12,14 @@ int parseNextNum(char **line) {
 }
 
 int main() {
-    char *input = NULL;
+    char *input = nullptr;
     size_t inputSize;
     ssize_t bytesRead = getline(&input, &inputSize, stdin);
+
+    if (bytesRead == -1 || !inputSize) {
+        puts("Error reading input");
+        return 1;
+    }
 
     int square = 1;
     int squareIndex = 1;
