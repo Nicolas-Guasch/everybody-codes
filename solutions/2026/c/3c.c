@@ -62,7 +62,7 @@ int64 calculateISO(Diginumber *num, Diginumber *base) {
 }
 
 bool32 minimalRep(int64 rep, int64 value, Diginumber *base) {
-    for (int i = 1; i < rep; i++) {
+    for (int64 i = value; i < rep; i++) {
         Diginumber test;
         digitize(i, &test);
         if (calculateISO(&test, base) == value) {
