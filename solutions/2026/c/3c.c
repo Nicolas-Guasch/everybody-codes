@@ -11,12 +11,12 @@ int32 powInt32(int32 base, int32 exp) {
 
 constexpr int32 DIGITCOUNT = 10;
 typedef struct Diginumber {
-    int32 digits[DIGITCOUNT];
+    uint8 digits[DIGITCOUNT];
     int32 length;
 } Diginumber;
 
 
-#define swapInt32(a, b) a^=b;b^=a;a^=b;
+#define swapUint8(a, b) uint8 t=b;b=a;a=t
 void digitize(int64 value, Diginumber *result) {
     if (!value) {
         result->digits[0] = 0;
@@ -26,12 +26,12 @@ void digitize(int64 value, Diginumber *result) {
 
     result->length = 0;
     while (value) {
-        result->digits[result->length++] = value % 10;
+        result->digits[result->length++] = (uint8)(value % 10);
         value /= 10;
     }
 
     for (int i = 0; i < result->length - 1 - i; i++) {
-        swapInt32(result->digits[i], result->digits[result->length - 1 - i]);
+        swapUint8(result->digits[i], result->digits[result->length - 1 - i]);
     }
 }
 
@@ -46,7 +46,7 @@ int64 diginumberToDecimal(Diginumber *num) {
 void parseDigits(char **input, Diginumber *num) {
     num->length = 0;
     while ('0' <= **input && **input <= '9') {
-        num->digits[num->length++] = *((*input)++) - '0';
+        num->digits[num->length++] = (uint8)(*((*input)++) - '0');
     }
     (*input)++;
     return;
@@ -61,7 +61,7 @@ int64 calculateISO(Diginumber *num, Diginumber *base) {
     return result;
 }
 
-bool32 minimalRep(int64 rep, int64 value, Diginumber *base) {
+bool minimalRep(int64 rep, int64 value, Diginumber *base) {
     for (int64 i = value; i < rep; i++) {
         Diginumber test;
         digitize(i, &test);
