@@ -5,7 +5,7 @@
 #define ALLOYS 9
 void parseComparison(char **line, int *u, int *v) {
     for (int byte = 0; byte < 4; byte++) {
-        assert(line[byte] != nullptr);
+        assert((*line)[byte] != '\0');
     }
     char a = (*line)[0], 
          operator = (*line)[1],
