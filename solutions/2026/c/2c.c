@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "utils.h"
 
-#define ALLOYS 9
+constexpr int32 ALLOYS = 9;
 void parseComparison(char **line, int *u, int *v) {
     for (int byte = 0; byte < 4; byte++) {
         assert((*line)[byte] != '\0');
@@ -45,7 +45,7 @@ int main() {
 
     int64 checksum = 0;
     while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
-        char *baseInput = input;
+        char *cursor = input;
         if (bytesRead % 4 != 0) {
             puts("Input format invalid");
             return 1;
@@ -55,7 +55,7 @@ int main() {
         int32 checked[ALLOYS] = {0};
         while (*input) {
             int u, v;
-            parseComparison(&input, &u, &v);
+            parseComparison(&cursor, &u, &v);
             adjacent[u][v] = 1;
         }
 
@@ -72,9 +72,6 @@ int main() {
             number = number * 10ll + digits[index];
         }
         checksum += number;
-        free(baseInput);
-        input = nullptr;
-        inputSize = 0;
     }
 
     printf("Checksum: %ld\n", checksum);

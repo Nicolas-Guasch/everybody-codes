@@ -75,28 +75,24 @@ void mergeSortScore(Contestant *T, uint32 *array, int32 left, int32 right) {
 
 int main() {
     char *input = nullptr;
-    size_t inputSize = 0;
+    size_t capacity = 0;
     ssize_t bytesRead;
 
     constexpr uint32 CONTESTANTS = 256;
     Contestant tournament[CONTESTANTS] = {0};
-    while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
-        char *baseInput = input;
+    while ((bytesRead = getline(&input, &capacity, stdin)) != -1) {
+        char *cursor = input;
 
         input += 3;
-        uint32 id = parseUint32(&input);
+        uint32 id = parseUint32(&cursor);
         input += 6;
-        uint32 quest = parseUint32(&input);
+        uint32 quest = parseUint32(&cursor);
         input += 5;
-        uint32 part = parseUint32(&input);
+        uint32 part = parseUint32(&cursor);
         input += 5;
-        uint32 time = parseUint32(&input);
+        uint32 time = parseUint32(&cursor);
         assert(id <= CONTESTANTS && quest <= QUESTS && part <= PARTS);
         tournament[id - 1].time[quest - 1][part - 1] = time;
-
-        free(baseInput);
-        input = nullptr;
-        inputSize = 0;
     }
     
 

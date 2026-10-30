@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "utils.h"
 
-#define ALLOYS 9
+constexpr int32 ALLOYS = 9;
 void parseComparison(char **line, int *u, int *v) {
     for (int byte = 0; byte < 4; byte++) {
         assert((*line)[byte] != '\0');
@@ -40,14 +40,14 @@ void toposort(int32 u, int32 adjacent[ALLOYS][ALLOYS], int32 checked[ALLOYS], in
 
 int main() {
     char *input = nullptr;
-    size_t inputSize = 0;   
+    size_t capacity = 0;   
     ssize_t bytesRead;
 
     const int32 comparisons = (ALLOYS * (ALLOYS - 1)) / 2 - 1;
 
     int64 checksum = 0;
-    while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
-        char *baseInput = input;
+    while ((bytesRead = getline(&input, &capacity, stdin)) != -1) {
+        char *cursor = input;
         if (bytesRead != 4 * comparisons) {
             puts("Input format invalid");
             return 1;
@@ -57,7 +57,7 @@ int main() {
         int32 checked[ALLOYS] = {0};
         for (int i = 0; i < comparisons; i++) {
             int u, v;
-            parseComparison(&input, &u, &v);
+            parseComparison(&cursor, &u, &v);
             adjacent[u][v] = 1;
         }
 
@@ -76,9 +76,6 @@ int main() {
         }
         printf("number: %ld\n", number);
         checksum += number;
-        free(baseInput);
-        input = nullptr;
-        inputSize = 0;
     }
 
     printf("Checksum: %ld\n", checksum);

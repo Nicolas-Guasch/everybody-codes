@@ -80,22 +80,18 @@ int main() {
 
     int64 score = 0;
     while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
-        char *baseInput = input;
+        char *cursor = input;
 
         Diginumber digiVote, base;
 
         input += 5;
-        parseDigits(&input, &base);
-        parseDigits(&input, &digiVote);
+        parseDigits(&cursor, &base);
+        parseDigits(&cursor, &digiVote);
 
         int64 vote = calculateISO(&digiVote, &base);
         if (minimalRep(diginumberToDecimal(&digiVote), vote, &base)) {
             score += vote;
         }
-        
-        free(baseInput);
-        input = nullptr;
-        inputSize = 0;
     }
 
     printf("The candidate's total score is: %ld\n", score);

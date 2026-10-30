@@ -18,21 +18,21 @@ void parseDigits(char **input, int *digits) {
 
 int main() {
     char *input = nullptr;
-    size_t inputSize = 0;
+    size_t capacity = 0;
     ssize_t bytesRead;
 
     constexpr int32 DIGITCOUNT = 4;
     [[maybe_unused]] constexpr int32 INPUTSIZE = 4 + (DIGITCOUNT + 1) * 2;
     int64 score = 0;
-    while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
+    while ((bytesRead = getline(&input, &capacity, stdin)) != -1) {
         assert(bytesRead == INPUTSIZE);
-        char *baseInput = input;
+        char *cursor = input;
         int32 base[DIGITCOUNT] = {0};
         int32 voteDigits[DIGITCOUNT] = {0};
 
         input += 4;
-        parseDigits(&input, base);
-        parseDigits(&input, voteDigits);
+        parseDigits(&cursor, base);
+        parseDigits(&cursor, voteDigits);
 
         int32 vote = 0;
         for (int32 i = 0; i < DIGITCOUNT; i++) {
@@ -40,10 +40,6 @@ int main() {
                 powInt32(base[DIGITCOUNT - 1 - i], i);
         }
         score += vote;
-        
-        free(baseInput);
-        input = nullptr;
-        inputSize = 0;
     }
 
     printf("The candidate's total score is: %ld\n", score);

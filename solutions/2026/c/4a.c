@@ -34,25 +34,21 @@ void mergeSort(uint32 *array, int32 left, int32 right) {
 
 int main() {
     char *input = nullptr;
-    size_t inputSize = 0;
+    size_t capacity = 0;
     ssize_t bytesRead;
 
     constexpr uint32 CONTESTANTS = 10;
     uint32 contestantTime[CONTESTANTS] = {0};
-    while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
-        char *baseInput = input;
+    while ((bytesRead = getline(&input, &capacity, stdin)) != -1) {
+        char *cursor = input;
 
         input += 3;
-        uint32 id = parseUint32(&input);
+        uint32 id = parseUint32(&cursor);
         input += 8;
         input += 7;
         input += 5;
-        uint32 time = parseUint32(&input);
+        uint32 time = parseUint32(&cursor);
         contestantTime[id - 1] += time;
-
-        free(baseInput);
-        input = nullptr;
-        inputSize = 0;
     }
     
     uint64 checksum = 0;

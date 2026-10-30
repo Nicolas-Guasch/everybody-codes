@@ -27,13 +27,13 @@ int main() {
     constexpr int32 DIGITCOUNT = 10;
     int64 score = 0;
     while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
-        char *baseInput = input;
+        char *cursor = input;
         int32 base[DIGITCOUNT] = {0};
         int32 voteDigits[DIGITCOUNT] = {0};
 
         input += 4;
-        int32 baseLength = parseDigits(&input, base);
-        int32 voteLength = parseDigits(&input, voteDigits);
+        int32 baseLength = parseDigits(&cursor, base);
+        int32 voteLength = parseDigits(&cursor, voteDigits);
 
         int64 vote = 0;
         for (int32 i = 0; i < voteLength; i++) {
@@ -41,10 +41,6 @@ int main() {
                 (int64)powInt32(base[baseLength - 1 - (i%baseLength)], i);
         }
         score += vote;
-        
-        free(baseInput);
-        input = nullptr;
-        inputSize = 0;
     }
 
     printf("The candidate's total score is: %ld\n", score);
