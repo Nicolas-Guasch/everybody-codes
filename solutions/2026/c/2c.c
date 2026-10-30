@@ -53,7 +53,7 @@ int main() {
 
         int32 adjacent[ALLOYS][ALLOYS] = {{0}};
         int32 checked[ALLOYS] = {0};
-        while (*input) {
+        while (*cursor) {
             int u, v;
             parseComparison(&cursor, &u, &v);
             adjacent[u][v] = 1;
