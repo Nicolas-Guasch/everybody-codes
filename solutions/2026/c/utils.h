@@ -16,8 +16,12 @@ typedef uint64_t uint64;
 typedef float real32;
 typedef double real64;
 
+#define internal static
+#define global_variable static
+#define local_persist static
+
 #if DEBUG
-#define assert(expression) if(!(expression)) { *(volatile int *)0 = 0;}
+#define assert(expression) do {if(!(expression)) { __builtin_trap();}} while(0)
 #else
 #define assert(expression)
 #endif
