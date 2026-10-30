@@ -33,18 +33,11 @@ void mergeSort(uint32 *array, int32 left, int32 right) {
 }
 
 int main() {
-#ifdef DEBUG
-    freopen("4a.ex.in", "r", stdin);
-#endif
     char *input = nullptr;
     size_t inputSize = 0;
     ssize_t bytesRead;
 
-#ifdef DEBUG
-    constexpr uint32 CONTESTANTS = 5;
-#else
     constexpr uint32 CONTESTANTS = 10;
-#endif
     uint32 contestantTime[CONTESTANTS] = {0};
     while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
         char *baseInput = input;
