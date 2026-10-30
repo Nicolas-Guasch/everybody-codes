@@ -44,18 +44,11 @@ void mergeSort(Contestant *array, int32 left, int32 right) {
 }
 
 int main() {
-#ifdef DEBUG
-    freopen("4b.ex.in", "r", stdin);
-#endif
     char *input = nullptr;
     size_t inputSize = 0;
     ssize_t bytesRead;
 
-#ifdef DEBUG
-    constexpr uint32 CONTESTANTS = 4;
-#else
     constexpr uint32 CONTESTANTS = 100;
-#endif
     Contestant tournament[CONTESTANTS] = {0};
     while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
         char *baseInput = input;
