@@ -53,13 +53,13 @@ int main() {
     while ((bytesRead = getline(&input, &capacity, stdin)) != -1) {
         char *cursor = input;
 
-        input += 3;
+        cursor += 3;
         uint32 id = parseUint32(&cursor);
-        input += 6;
+        cursor += 6;
         [[maybe_unused]]uint32 quest = parseUint32(&cursor);
-        input += 5;
+        cursor += 5;
         [[maybe_unused]]uint32 part = parseUint32(&cursor);
-        input += 5;
+        cursor += 5;
         uint32 time = parseUint32(&cursor);
         tournament[id - 1].parts++;
         tournament[id - 1].time += time;

@@ -83,13 +83,13 @@ int main() {
     while ((bytesRead = getline(&input, &capacity, stdin)) != -1) {
         char *cursor = input;
 
-        input += 3;
+        cursor += 3;
         uint32 id = parseUint32(&cursor);
-        input += 6;
+        cursor += 6;
         uint32 quest = parseUint32(&cursor);
-        input += 5;
+        cursor += 5;
         uint32 part = parseUint32(&cursor);
-        input += 5;
+        cursor += 5;
         uint32 time = parseUint32(&cursor);
         assert(id <= CONTESTANTS && quest <= QUESTS && part <= PARTS);
         tournament[id - 1].time[quest - 1][part - 1] = time;

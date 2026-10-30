@@ -42,11 +42,11 @@ int main() {
     while ((bytesRead = getline(&input, &capacity, stdin)) != -1) {
         char *cursor = input;
 
-        input += 3;
+        cursor += 3;
         uint32 id = parseUint32(&cursor);
-        input += 8;
-        input += 7;
-        input += 5;
+        cursor += 8;
+        cursor += 7;
+        cursor += 5;
         uint32 time = parseUint32(&cursor);
         contestantTime[id - 1] += time;
     }
