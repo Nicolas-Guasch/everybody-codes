@@ -32,6 +32,7 @@ int main() {
 
     int32 checksum = 0;
     while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
+        char *baseInput = input;
         if (bytesRead != 4 * comparisons) {
             puts("Input format invalid");
             return 1;
@@ -52,6 +53,9 @@ int main() {
         }
         printf("number: %d\n", number);
         checksum += number;
+        free(baseInput);
+        input = nullptr;
+        inputSize = 0;
     }
 
     printf("Checksum: %d\n", checksum);
