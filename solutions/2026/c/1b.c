@@ -2,9 +2,9 @@
 #include "utils.h"
 
 int32 parseNextNum(char **line) {
+    assert(*line != nullptr);
     int32 result = 0;
-    while ((**line != ',') && (**line != '\n')) {
-        assert(*line != nullptr);
+    while (('0' < **line) && (**line < '9')) {
         result = result * 10 + (**line - '0');
         (*line)++;
     }
@@ -12,7 +12,7 @@ int32 parseNextNum(char **line) {
     return result;
 }
 
-inline int32 calcFrame(int32 index) {
+internal inline int32 calcFrame(int32 index) {
     return index * index - (index - 2) * (index - 2);
 }
 
