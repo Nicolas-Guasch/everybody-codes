@@ -30,7 +30,7 @@ int main() {
         int32 base[DIGITCOUNT] = {0};
         int32 voteDigits[DIGITCOUNT] = {0};
 
-        input += 4;
+        cursor += 4;
         parseDigits(&cursor, base);
         parseDigits(&cursor, voteDigits);
 

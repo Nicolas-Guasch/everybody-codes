@@ -84,7 +84,7 @@ int main() {
 
         Diginumber digiVote, base;
 
-        input += 5;
+        cursor += 5;
         parseDigits(&cursor, &base);
         parseDigits(&cursor, &digiVote);
 
