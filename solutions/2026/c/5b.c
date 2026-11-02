@@ -143,7 +143,6 @@ int main() {
             }
         }
     }
-    printf("There are %d sand cells.\n", sandCells);
 
     while (!processQueue.empty) {
         const Position pos = queuePop(&processQueue);
