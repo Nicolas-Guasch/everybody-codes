@@ -27,11 +27,11 @@ internal Queue queueCreate() {
 internal void queuePush(Queue *q, int32 i, int32 j) {
     Position pos = {i, j};
     uint64 size = (q->tail >= q->head) ? q->tail - q->head : (q->capacity + q->tail) - q->head;
-    if (size == q->capacity) {
+    if (size + 1 == q->capacity) {
         q->capacity *= 2;
         Position *expandQueue = (Position *)malloc(sizeof(Position) * q->capacity);
         uint64 queuePos = q->head;
-        for (uint64 ind = 0; ind < size; ind++) {
+        for (uint64 ind = 0; ind < size - 1; ind++) {
             expandQueue[ind] = q->queue[queuePos];
             queuePos = (queuePos + 1 == size) ? 0 : queuePos + 1;
         }
