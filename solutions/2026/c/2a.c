@@ -8,7 +8,7 @@ internal int32 parseComparison(char **line) {
     for (int byte = 0; byte < 4; byte++) {
         assert((*line)[byte] != '\0');
     }
-    char a = (*line)[0], 
+    const char a = (*line)[0], 
          operator = (*line)[1],
          b = (*line)[2];
     if (operator == '<') {

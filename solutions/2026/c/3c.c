@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "utils.h"
 
-int32 powInt32(int32 base, int32 exp) {
+int32 powInt32(const int32 base, int32 exp) {
     assert(exp >= 0);
     int32 result = 1;
     while (exp--) result *= base;
@@ -39,7 +39,7 @@ void digitize(int64 value, Diginumber *result) {
     }
 }
 
-int64 diginumberToDecimal(Diginumber *num) {
+int64 diginumberToDecimal(const Diginumber *num) {
     int64 result = 0;
     for (int i = 0; i < num->length; i++) {
         result = result * 10 + num->digits[i];
@@ -56,7 +56,7 @@ void parseDigits(char **input, Diginumber *num) {
     return;
 }
 
-NumberBase precomputeWeights(Diginumber *baseDigits, int32 length) {
+NumberBase precomputeWeights(const Diginumber *baseDigits, const int32 length) {
     NumberBase result;
     for (int32 i = 0; i < length; i++) {
         result.weights[i] = powInt32(baseDigits->digits[baseDigits->length -1 - (i % baseDigits->length)], i);
@@ -64,7 +64,7 @@ NumberBase precomputeWeights(Diginumber *baseDigits, int32 length) {
     return result;
 }
 
-int64 calculateISO(Diginumber *num, NumberBase *base) {
+int64 calculateISO(const Diginumber *num, const NumberBase *base) {
     int64 result = 0;
     for (int32 i = 0; i < num->length; i++) {
         result += (int64)num->digits[num->length - 1 - i] * 
@@ -73,7 +73,7 @@ int64 calculateISO(Diginumber *num, NumberBase *base) {
     return result;
 }
 
-bool minimalRep(int64 rep, int64 value, NumberBase *base) {
+bool minimalRep(const int64 rep, const int64 value, const NumberBase *base) {
     for (int64 i = value; i < rep; i++) {
         Diginumber test;
         digitize(i, &test);
@@ -100,9 +100,9 @@ int main() {
         parseDigits(&cursor, &baseDigits);
         parseDigits(&cursor, &digiVote);
 
-        NumberBase base = precomputeWeights(&baseDigits, digiVote.length);
+        const NumberBase base = precomputeWeights(&baseDigits, digiVote.length);
 
-        int64 vote = calculateISO(&digiVote, &base);
+        const int64 vote = calculateISO(&digiVote, &base);
         if (minimalRep(diginumberToDecimal(&digiVote), vote, &base)) {
             score += vote;
         }

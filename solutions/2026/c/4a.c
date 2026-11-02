@@ -11,9 +11,9 @@ uint32 parseUint32(char **input) {
     return result;
 }
 
-void mergeSort(uint32 *array, int32 left, int32 right) {
+void mergeSort(uint32 *array, const int32 left, const int32 right) {
     if (right - left <= 1) return;
-    int32 mid = (right - left) / 2 + left;
+    const int32 mid = (right - left) / 2 + left;
     mergeSort(array, left, mid);
     mergeSort(array, mid, right);
 

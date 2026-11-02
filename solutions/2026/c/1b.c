@@ -12,8 +12,8 @@ internal int32 parseNextNum(char **line) {
     return result;
 }
 
-internal inline int32 calcFrame(int32 index) {
-    return index * index - (index - 2) * (index - 2);
+internal inline int32 calcFrame(const int32 index) {
+    return 4 * (index - 1);
 }
 
 int main() {

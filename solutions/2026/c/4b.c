@@ -16,15 +16,15 @@ typedef struct Contestant {
     uint32 time;
 } Contestant;
 
-bool contestantComp(Contestant a, Contestant b) {
+bool contestantComp(const Contestant a, const Contestant b) {
     return (a.parts == b.parts) 
         ? a.time < b.time
         : a.parts > b.parts;
 }
 
-void mergeSort(Contestant *array, int32 left, int32 right) {
+void mergeSort(Contestant *array, const int32 left, const int32 right) {
     if (right - left <= 1) return;
-    int32 mid = (right - left) / 2 + left;
+    const int32 mid = (right - left) / 2 + left;
     mergeSort(array, left, mid);
     mergeSort(array, mid, right);
 

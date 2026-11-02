@@ -24,9 +24,9 @@ internal Queue queueCreate() {
     return q;
 }
 
-internal void queuePush(Queue *q, int32 i, int32 j) {
-    Position pos = {i, j};
-    uint64 size = (q->tail >= q->head) ? q->tail - q->head : (q->capacity + q->tail) - q->head;
+internal void queuePush(Queue *q, const int32 i, const int32 j) {
+    const Position pos = {i, j};
+    const uint64 size = (q->tail >= q->head) ? q->tail - q->head : (q->capacity + q->tail) - q->head;
     if (size + 1 == q->capacity) {
         q->capacity *= 2;
         Position *expandQueue = (Position *)malloc(sizeof(Position) * q->capacity);
@@ -55,14 +55,14 @@ internal Position queuePop(Queue *q) {
 
 constexpr int32 WIDTH = 299, HEIGHT = 163;
 
-internal inline bool inbounds(int32 i, int32 j) {
+internal inline bool inbounds(const int32 i, const int32 j) {
     return 0 <= i && i < HEIGHT && 0 <= j && j < WIDTH;
 }
 
 constexpr int32 di[] = {-1, -1, -1, +0, +1, +1, +1, +0};
 constexpr int32 dj[] = {-1, +0, +1, +1, +1, +0, -1, -1};
 constexpr int32 touching = 8;
-internal void addNeighbors(uint8 neighbors[HEIGHT][WIDTH], int32 i, int32 j) {
+internal void addNeighbors(uint8 neighbors[HEIGHT][WIDTH], const int32 i, const int32 j) {
     for (int32 k = 0; k < touching; k++) {
         int32 neighI = i + di[k],
         neighJ = j + dj[k];
@@ -181,7 +181,6 @@ int main() {
             treeCells += canPlant;
         }
     }
-    printf("There are %d tree cells.\n", treeCells);
 
     for (int32 _passes = 0; _passes < 2; _passes++) {
         for (int32 i = 1; i < HEIGHT - 1; i++) {
@@ -205,10 +204,9 @@ int main() {
             Position newTree = queuePop(&processQueue);
             tree[newTree.i][newTree.j] = true;
         }
-        printf("There are %d tree cells.\n", treeCells);
     }
 
-    //printf("There are %d tree cells.\n", treeCells);
+    printf("There are %d tree cells.\n", treeCells);
 
 
     return 0;

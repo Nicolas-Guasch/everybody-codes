@@ -13,7 +13,7 @@ Comparison parseComparison(char **line) {
     for (int byte = 0; byte < 4; byte++) {
         assert((*line)[byte] != '\0');
     }
-    char a = (*line)[0], 
+    const char a = (*line)[0], 
          operator = (*line)[1],
          b = (*line)[2];
     if (operator == '<') {
@@ -33,11 +33,11 @@ Comparison parseComparison(char **line) {
     return result;
 }
 
-void toposort(int32 u, uint32 adjacent[ALLOYS], int32 checked[ALLOYS], int32 digits[ALLOYS], int32 *current) {
+void toposort(const int32 u, const uint32 adjacent[ALLOYS], int32 checked[ALLOYS], int32 digits[ALLOYS], int32 *current) {
     checked[u] = 1;
     uint32 uAdjacent = adjacent[u];
     while (uAdjacent) {
-        int32 v = __builtin_ctz(uAdjacent);
+        const int32 v = __builtin_ctz(uAdjacent);
         uAdjacent &= uAdjacent - 1;
         if (!checked[v]) {
             toposort(v, adjacent, checked, digits, current);

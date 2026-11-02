@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "utils.h"
 
-int32 powInt32(int32 base, int32 exp) {
+int32 powInt32(const int32 base, int32 exp) {
     assert(exp >= 0);
     int32 result = 1;
     while (exp--) result *= base;
@@ -32,8 +32,8 @@ int main() {
         int32 voteDigits[DIGITCOUNT] = {0};
 
         cursor += 4;
-        int32 baseLength = parseDigits(&cursor, base);
-        int32 voteLength = parseDigits(&cursor, voteDigits);
+        const int32 baseLength = parseDigits(&cursor, base);
+        const int32 voteLength = parseDigits(&cursor, voteDigits);
 
         int64 vote = 0;
         for (int32 i = 0; i < voteLength; i++) {

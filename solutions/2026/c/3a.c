@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "utils.h"
 
-int32 powInt32(int32 base, int32 exp) {
+int32 powInt32(const int32 base, int32 exp) {
     assert(exp >= 0);
     int32 result = 1;
     while (exp--) result *= base;

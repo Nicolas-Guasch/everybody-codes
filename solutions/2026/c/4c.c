@@ -23,13 +23,13 @@ typedef struct ContestantPartTime {
     uint32 time;
 } ContestantPartTime;
 
-bool contestantComp(ContestantPartTime a, ContestantPartTime b) {
+bool contestantComp(const ContestantPartTime a, const ContestantPartTime b) {
     return a.time && ((b.time && a.time < b.time) || !b.time);
 }
 
-void mergeSort(ContestantPartTime *array, int32 left, int32 right) {
+void mergeSort(ContestantPartTime *array, const int32 left, const int32 right) {
     if (right - left <= 1) return;
-    int32 mid = (right - left) / 2 + left;
+    const int32 mid = (right - left) / 2 + left;
     mergeSort(array, left, mid);
     mergeSort(array, mid, right);
 
@@ -48,13 +48,13 @@ void mergeSort(ContestantPartTime *array, int32 left, int32 right) {
     return;
 }
 
-bool scoreComp(Contestant *T, uint32 a, uint32 b) {
+bool scoreComp(Contestant *T, const uint32 a, const uint32 b) {
     return T[a].points > T[b].points;
 }
 
-void mergeSortScore(Contestant *T, uint32 *array, int32 left, int32 right) {
+void mergeSortScore(Contestant *T, uint32 *array, const int32 left, const int32 right) {
     if (right - left <= 1) return;
-    int32 mid = (right - left) / 2 + left;
+    const int32 mid = (right - left) / 2 + left;
     mergeSortScore(T, array, left, mid);
     mergeSortScore(T, array, mid, right);
 

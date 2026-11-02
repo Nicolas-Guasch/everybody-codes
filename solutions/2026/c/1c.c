@@ -12,7 +12,7 @@ internal int32 parseNextNum(char **line) {
     return result;
 }
 
-internal inline int32 calcFrame(int32 index) {
+internal inline int32 calcFrame(const int32 index) {
     return index * index - 1;
 }
 
