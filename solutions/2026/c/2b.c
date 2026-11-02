@@ -2,8 +2,14 @@
 #include <stdlib.h>
 #include "utils.h"
 
+typedef struct Comparison {
+    int32 greater;
+    int32 lesser;
+} Comparison;
+
 constexpr int32 ALLOYS = 9;
-void parseComparison(char **line, int *u, int *v) {
+Comparison parseComparison(char **line) {
+    Comparison result;
     for (int byte = 0; byte < 4; byte++) {
         assert((*line)[byte] != '\0');
     }
@@ -11,21 +17,20 @@ void parseComparison(char **line, int *u, int *v) {
          operator = (*line)[1],
          b = (*line)[2];
     if (operator == '<') {
-        *u = b - '0';
-        *v = a - '0';
+        result.greater = b - '0' - 1;
+        result.lesser = a - '0';
     } else if (operator == '>') {
-        *u = a - '0';
-        *v = b - '0';
+        result.greater = a - '0' - 1;
+        result.lesser = b - '0' - 1;
     } else {
         assert(false);
+        __builtin_unreachable();
     }
-    (*u)--;
-    (*v)--;
-    assert(0 <= *u && *u < ALLOYS
-        && 0 <= *v && *v < ALLOYS);
+    assert(0 <= result.greater && result.greater < ALLOYS
+        && 0 <= result.lesser && result.lesser < ALLOYS);
 
     (*line) += 4;
-    return;
+    return result;
 }
 
 void toposort(int32 u, int32 adjacent[ALLOYS][ALLOYS], int32 checked[ALLOYS], int32 digits[ALLOYS], int32 *current) {
@@ -56,9 +61,8 @@ int main() {
         int32 adjacent[ALLOYS][ALLOYS] = {{0}};
         int32 checked[ALLOYS] = {0};
         for (int i = 0; i < comparisons; i++) {
-            int u, v;
-            parseComparison(&cursor, &u, &v);
-            adjacent[u][v] = 1;
+            Comparison cmp = parseComparison(&cursor);
+            adjacent[cmp.greater][cmp.lesser] = 1;
         }
 
         int32 digits[ALLOYS] = {0};
@@ -74,7 +78,6 @@ int main() {
         for (int32 index = 0; index < ALLOYS; index++) {
             number = number * 10ll + digits[index];
         }
-        printf("number: %ld\n", number);
         checksum += number;
     }
 

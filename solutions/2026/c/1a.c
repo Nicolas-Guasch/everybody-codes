@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "utils.h"
 
-int32 parseNextNum(char **line) {
+internal int32 parseNextNum(char **line) {
     assert(*line != nullptr);
     int32 result = 0;
     while (('0' < **line) && (**line < '9')) {

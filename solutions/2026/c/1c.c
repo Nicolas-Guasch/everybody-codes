@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "utils.h"
 
-int32 parseNextNum(char **line) {
+internal int32 parseNextNum(char **line) {
     assert(*line != nullptr);
     int32 result = 0;
     while (('0' < **line) && (**line < '9')) {
@@ -12,7 +12,7 @@ int32 parseNextNum(char **line) {
     return result;
 }
 
-static inline int32 calcFrame(int32 index) {
+internal inline int32 calcFrame(int32 index) {
     return index * index - 1;
 }
 

@@ -3,7 +3,7 @@
 #include "utils.h"
 
 constexpr int32 ALLOYS = 5;
-int32 parseComparison(char **line) {
+internal int32 parseComparison(char **line) {
     int result = 0;
     for (int byte = 0; byte < 4; byte++) {
         assert((*line)[byte] != '\0');
