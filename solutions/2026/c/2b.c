@@ -33,10 +33,13 @@ Comparison parseComparison(char **line) {
     return result;
 }
 
-void toposort(int32 u, int32 adjacent[ALLOYS][ALLOYS], int32 checked[ALLOYS], int32 digits[ALLOYS], int32 *current) {
+void toposort(int32 u, uint32 adjacent[ALLOYS], int32 checked[ALLOYS], int32 digits[ALLOYS], int32 *current) {
     checked[u] = 1;
-    for (int32 v = 0; v < ALLOYS; v++) {
-        if (adjacent[u][v] && !checked[v]) {
+    uint32 uAdjacent = adjacent[u];
+    while (uAdjacent) {
+        int32 v = __builtin_ctz(uAdjacent);
+        uAdjacent &= uAdjacent - 1;
+        if (!checked[v]) {
             toposort(v, adjacent, checked, digits, current);
         }
     }
@@ -58,11 +61,11 @@ int main() {
             return 1;
         }
 
-        int32 adjacent[ALLOYS][ALLOYS] = {{0}};
+        uint32 adjacent[ALLOYS] = {0};
         int32 checked[ALLOYS] = {0};
         for (int i = 0; i < comparisons; i++) {
             Comparison cmp = parseComparison(&cursor);
-            adjacent[cmp.greater][cmp.lesser] = 1;
+            adjacent[cmp.greater] |= 1u << cmp.lesser;
         }
 
         int32 digits[ALLOYS] = {0};
