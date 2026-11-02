@@ -78,6 +78,7 @@ int main() {
     size_t capacity = 0;
     ssize_t bytesRead;
 
+    // TODO: Compress dark, neighbors, land, sand, tree into a Cell struct.
     uint8 dark[HEIGHT][WIDTH] = {0};
     uint8 neighbors[HEIGHT][WIDTH] = {0};
     bool land[HEIGHT][WIDTH] = {0};

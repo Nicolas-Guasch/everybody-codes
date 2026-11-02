@@ -73,6 +73,8 @@ int64 calculateISO(const Diginumber *num, const NumberBase *base) {
     return result;
 }
 
+// TODO: Implement a odometer style integer iteration to speed search up.
+// TODO: Iterate from highest to lowest digit. Discard impossible configurations.
 bool minimalRep(const int64 rep, const int64 value, const NumberBase *base) {
     for (int64 i = value; i < rep; i++) {
         Diginumber test;
