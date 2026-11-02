@@ -15,6 +15,10 @@ typedef struct Diginumber {
     int32 length;
 } Diginumber;
 
+typedef struct NumberBase {
+    int32 weights[DIGITCOUNT];
+} NumberBase;
+
 
 #define swapUint8(a, b) uint8 t=b;b=a;a=t
 void digitize(int64 value, Diginumber *result) {
@@ -52,16 +56,24 @@ void parseDigits(char **input, Diginumber *num) {
     return;
 }
 
-int64 calculateISO(Diginumber *num, Diginumber *base) {
-    int64 result = 0;
-    for (int32 i = 0; i < num->length; i++) {
-        result += (int64)num->digits[num->length - 1 - i] * 
-            (int64)powInt32(base->digits[base->length - 1 - (i % base->length)], i);
+NumberBase precomputeWeights(Diginumber *baseDigits, int32 length) {
+    NumberBase result;
+    for (int32 i = 0; i < length; i++) {
+        result.weights[i] = powInt32(baseDigits->digits[baseDigits->length -1 - (i % baseDigits->length)], i);
     }
     return result;
 }
 
-bool minimalRep(int64 rep, int64 value, Diginumber *base) {
+int64 calculateISO(Diginumber *num, NumberBase *base) {
+    int64 result = 0;
+    for (int32 i = 0; i < num->length; i++) {
+        result += (int64)num->digits[num->length - 1 - i] * 
+            (int64)base->weights[i];
+    }
+    return result;
+}
+
+bool minimalRep(int64 rep, int64 value, NumberBase *base) {
     for (int64 i = value; i < rep; i++) {
         Diginumber test;
         digitize(i, &test);
@@ -82,11 +94,13 @@ int main() {
     while ((bytesRead = getline(&input, &inputSize, stdin)) != -1) {
         char *cursor = input;
 
-        Diginumber digiVote, base;
+        Diginumber digiVote, baseDigits;
 
         cursor += 5;
-        parseDigits(&cursor, &base);
+        parseDigits(&cursor, &baseDigits);
         parseDigits(&cursor, &digiVote);
+
+        NumberBase base = precomputeWeights(&baseDigits, digiVote.length);
 
         int64 vote = calculateISO(&digiVote, &base);
         if (minimalRep(diginumberToDecimal(&digiVote), vote, &base)) {
