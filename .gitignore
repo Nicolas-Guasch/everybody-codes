@@ -16,6 +16,9 @@ solutions/2026/c/*
 *.obj
 *.elf
 
+# Asm
+*.s
+
 # Linker output
 *.ilk
 *.map
