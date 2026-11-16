@@ -9,7 +9,10 @@ CLANG_FLAGS_OPT="-O3 -march=znver5"
 CLANG_WARN_FLAGS="-Wall -Wextra -Werror -Wconversion -Wshadow"
 
 if [[ "$2" == "debug" ]]; then
-    clang $CLANG_FLAGS -O1 -g -DDEBUG -fsanitize=address,undefined -fno-sanitize-recover=all $CLANG_WARN_FLAGS "$SOURCE_FILE" -o "$EXE_NAME"
+    clang $CLANG_FLAGS -g -DDEBUG $CLANG_WARN_FLAGS "$SOURCE_FILE" -o "$EXE_NAME"
+    if [[ $? == 0 ]] then
+        clang $CLANG_FLAGS -O1 -g -DDEBUG -fsanitize=address,undefined -fno-sanitize-recover=all $CLANG_WARN_FLAGS "$SOURCE_FILE" -o "$EXE_NAME""mem"
+    fi
 else
     if [[ "$2" == "asm" ]]; then
         clang $CLANG_FLAGS $CLANG_FLAGS_OPT -S -masm=intel $CLANG_WARN_FLAGS "$SOURCE_FILE" -o "$EXE_NAME.s"
