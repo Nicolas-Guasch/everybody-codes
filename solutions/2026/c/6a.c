@@ -133,13 +133,13 @@ int main() {
         char *cursor = input;
         char item[ID_LENGTH];
         copyId(&cursor, item);
+        cursor++;
         int32 itemIndex = getIndex(&indexes, item);
-        assert(*cursor == ':');
         uint32 recipeIndex = 0;
-        while (*cursor != '\n') {
-            cursor++;
+        while (*cursor) {
             char ingredient[ID_LENGTH];
             copyId(&cursor, ingredient);
+            cursor++;
             int32 ingredientIndex = getIndex(&indexes, ingredient);
             recipe[itemIndex][recipeIndex++] = ingredientIndex;
         }

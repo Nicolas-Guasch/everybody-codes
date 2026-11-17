@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "utils.h"
 
 constexpr uint32 ID_LENGTH = 5;
@@ -140,12 +139,12 @@ int main() {
         char *cursor = input;
         char item[ID_LENGTH];
         copyId(&cursor, item);
+        cursor++;
         int32 itemIndex = getIndex(&indexes, item);
-        assert(*cursor == ':');
-        while (*cursor != '\n') {
-            cursor++;
+        while (*cursor) {
             char ingredient[ID_LENGTH];
             copyId(&cursor, ingredient);
+            cursor++;
             int32 ingredientIndex = getIndex(&indexes, ingredient);
             uint32 *ingredientRecipeIndex = &recipeIndex[ingredientIndex];
             assert(*ingredientRecipeIndex < MAX_RECIPE_SIZE);
@@ -190,8 +189,6 @@ int main() {
     }
 
     printf("%d different products use at least two different versions of NULL\n", dangerCount);
-
-    free(input);
 
     return 0;
 }
